@@ -74,7 +74,7 @@ def bq_upload():
     job_config.allow_quoted_newlines = True
 
     #upload local file to bq
-    filename = '/media/steven/big_boi/twitter/data/master_data_upload.csv'
+    filename = os.path.join(data_dir, 'master_data_upload.csv')
     with open(filename, "rb") as source_file:
         load_job = client.load_table_from_file(source_file, table_ref, job_config=job_config)
     print("Starting job {}".format(load_job.job_id))
