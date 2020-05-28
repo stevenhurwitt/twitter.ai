@@ -13,6 +13,7 @@ from google.cloud import bigquery_storage
 
 pp = pprint.PrettyPrinter(indent = 1)
 
+#handle log files
 should_roll_over = os.path.isfile('twitter_bq_upload.log')
 handler = logging.handlers.RotatingFileHandler('twitter_bq_upload.log', mode='w', backupCount=1)
 if should_roll_over: 
@@ -30,13 +31,11 @@ logging.info('initialized bigquery client.')
 print('imported modules successfully.')
 
 ### read data currently in bq table
-def read_bq_table():
+def bq_read_table():
 
     #read current bq table
     QUERY = "SELECT * FROM `symbolic-bit-277217.basement_dude_tweets.tweets_master`;"
     query_job = client.query(QUERY)
-    rows = query_job.result()
-
     results = client.query(QUERY).result()
     bq_output = results.to_dataframe()
     return(bq_output)
@@ -45,7 +44,7 @@ def read_bq_table():
 def subset_df(A, B):
     to_upload = pd.concat([A.drop(columns = 'date'), B.drop(columns = 'date')]).drop_duplicates(keep = False)
     print('master len: {}, bq table len: {}, subset df len: {}'.format(A.shape[0], B.shape[0], to_upload.shape[0]))
-    print('if master len < bq table len, data size has decreased and there is none to upload.')
+    print('if master len > bq table len, data size has decreased and there is none to upload.')
     to_upload = pd.concat([to_upload, A.date], axis = 1, join = 'inner')
     to_upload = to_upload[['text', 'user', 'date', 'fav_count', 'retweet_count', 'retweet']]
     to_upload.reset_index(drop = True, inplace = True)
@@ -72,7 +71,7 @@ def bq_upload():
     job_config.allow_quoted_newlines = True
 
     #upload local file to bq
-    filename = '/media/steven/big_boi/twitter/master_data_upload.csv'
+    filename = '/media/steven/big_boi/twitter/data/master_data_upload.csv'
     with open(filename, "rb") as source_file:
         load_job = client.load_table_from_file(source_file, table_ref, job_config=job_config)
     print("Starting job {}".format(load_job.job_id))
@@ -91,6 +90,16 @@ def bq_upload():
         for j in load_job.errors:
             logging.error(j)
 
+def bq_dedupe():
+    QUERY = """CREATE OR REPLACE TABLE `symbolic-bit-277217.basement_dude_tweets.tweets_master`
+            AS SELECT DISTINCT * FROM `symbolic-bit-277217.basement_dude_tweets.tweets_master`;"""
+    query_job = client.query(QUERY)
+    results = client.query(QUERY).result()
+    bq_output = results.to_dataframe()
+
+    bq_output = bq_read_table()
+    print('de-duplicated bq table to {} results.'.format(bq_output.shape[0]))
+
 def main():
     try:
         #read master data .csv
@@ -100,7 +109,7 @@ def main():
 
     try:
         #read bq table
-        bq_output = read_bq_table()
+        bq_output = bq_read_table()
     except:
         print('bigquery read error.')
 
@@ -117,6 +126,12 @@ def main():
     except:
         print('bigquery upload error.')
         logging.warning('bq upload failed.')
+    
+    try:
+        #deduplicate bq table
+        bq_dedupe()
+    except:
+        print('deduplication error.')
 
 if __name__ == "__main__":
     main()
