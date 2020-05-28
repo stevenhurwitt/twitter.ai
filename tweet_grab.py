@@ -11,15 +11,18 @@ import numpy as np
 #generate log file, init tweepy api, init pprinter
 base = os.getcwd()
 data_dir = os.path.join(base, 'data')
+log_dir = os.path.join(base, 'logs')
 print('working in directory: %s' % base)
 
 pp = pprint.PrettyPrinter(indent = 1)
 
+os.chdir(log_dir)
 should_roll_over = os.path.isfile('tweet_grab.log')
 handler = logging.handlers.RotatingFileHandler('tweet_grab.log', mode='w', backupCount=1)
 if should_roll_over: 
     handler.doRollover()
 logging.basicConfig(filename = 'tweet_grab.log', level = logging.DEBUG)
+os.chdir(base)
 
 with open('/media/steven/big_boi/creds_tweepy.json', 'r') as f:
     tweepy_creds = json.load(f)

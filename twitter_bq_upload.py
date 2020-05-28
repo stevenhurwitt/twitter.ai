@@ -13,14 +13,17 @@ from google.cloud import bigquery_storage
 
 pp = pprint.PrettyPrinter(indent = 1)
 
+base = os.getcwd()
+data_dir = os.path.join(base, 'data')
+log_dir = os.path.join(base, 'logs')
+
 #handle log files
+os.chdir(log_dir)
 should_roll_over = os.path.isfile('twitter_bq_upload.log')
 handler = logging.handlers.RotatingFileHandler('twitter_bq_upload.log', mode='w', backupCount=1)
 if should_roll_over: 
     handler.doRollover()
 logging.basicConfig(filename = 'twitter_bq_upload.log', level = logging.DEBUG)
-base = os.getcwd()
-data_dir = os.path.join(base, 'data')
 os.chdir(data_dir)
 
 #init bq client
