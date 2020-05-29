@@ -1,6 +1,7 @@
 import os
 import logging
 import logging.handlers
+import logging.config
 import pprint
 import json
 import datetime
@@ -18,13 +19,13 @@ data_dir = os.path.join(base, 'data')
 log_dir = os.path.join(base, 'logs')
 
 #handle log files
-os.chdir(log_dir)
-should_roll_over = os.path.isfile('twitter_bq_upload.log')
-handler = logging.handlers.RotatingFileHandler('twitter_bq_upload.log', mode='w', backupCount=1)
-if should_roll_over: 
-    handler.doRollover()
-logging.basicConfig(filename = 'twitter_bq_upload.log', level = logging.DEBUG)
-os.chdir(data_dir)
+def log_init():
+    should_roll_over = os.path.isfile('twitter_bq_upload.log')
+    handler = logging.handlers.RotatingFileHandler('twitter_bq_upload.log', mode='w', backupCount=1)
+    if should_roll_over: 
+        handler.doRollover()
+    logging.basicConfig(filename = 'twitter_bq_upload.log', level = logging.DEBUG)
+    logging.config.dictConfig({'version' : 1, 'disable_existing_loggers' : True})
 
 #init bq client
 creds_fname = '/media/steven/big_boi/creds_google.json'
@@ -137,4 +138,7 @@ def main():
         print('deduplication error.')
 
 if __name__ == "__main__":
+    os.chdir(log_dir)
+    log_init()
+    os.chdir(data_dir)
     main()
