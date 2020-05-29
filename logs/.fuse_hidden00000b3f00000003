@@ -1,0 +1,68 @@
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+INFO:root:initialized bigquery client.
+DEBUG:urllib3.util.retry:Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+DEBUG:google.auth.transport.requests:Making request: POST https://oauth2.googleapis.com/token
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): oauth2.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): bigquery.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/51841bb7-b37e-4935-b060-2a78ce9744bd?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/51841bb7-b37e-4935-b060-2a78ce9744bd?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon4ab30b60b87675677b2616a8dd50e36bf55e5773' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon4ab30b60b87675677b2616a8dd50e36bf55e5773/data HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/dcb4889d-375b-416b-867c-e9e055a82fbb?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/dcb4889d-375b-416b-867c-e9e055a82fbb?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon4ab30b60b87675677b2616a8dd50e36bf55e5773' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon4ab30b60b87675677b2616a8dd50e36bf55e5773/data HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/ac725e91-d3ed-41a7-9529-267f207b1c4a?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/ac725e91-d3ed-41a7-9529-267f207b1c4a?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon4ab30b60b87675677b2616a8dd50e36bf55e5773' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon4ab30b60b87675677b2616a8dd50e36bf55e5773/data HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/c7725c77-5bd8-406a-8350-cae279a51de4?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/c7725c77-5bd8-406a-8350-cae279a51de4?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon4ab30b60b87675677b2616a8dd50e36bf55e5773' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon4ab30b60b87675677b2616a8dd50e36bf55e5773/data HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/a417a970-6f7b-4135-995a-b9fae43e8852?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/a417a970-6f7b-4135-995a-b9fae43e8852?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon4ab30b60b87675677b2616a8dd50e36bf55e5773' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon4ab30b60b87675677b2616a8dd50e36bf55e5773/data HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/99f33943-69ae-4828-9daf-9d67103cb040?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/99f33943-69ae-4828-9daf-9d67103cb040?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon4ab30b60b87675677b2616a8dd50e36bf55e5773' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon4ab30b60b87675677b2616a8dd50e36bf55e5773/data HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/c2091d07-c104-4cee-83ca-f96ef1e76306?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/c2091d07-c104-4cee-83ca-f96ef1e76306?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon4ab30b60b87675677b2616a8dd50e36bf55e5773' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon4ab30b60b87675677b2616a8dd50e36bf55e5773/data HTTP/1.1" 200 None
+INFO:root:initialized bigquery client.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "POST /bigquery/v2/projects/symbolic-bit-277217/jobs HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/queries/e14207e0-838a-4d51-bdb0-93ee81696368?maxResults=0&location=US HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/jobs/e14207e0-838a-4d51-bdb0-93ee81696368?location=US HTTP/1.1" 200 None
+DEBUG:google.cloud.bigquery.table:Started reading table 'symbolic-bit-277217._92c6bd45f1c7d1e6b63c323a51c8c55da5139274.anon10e1931df88b49ae3d4617b0bae687204859ec9e' with tabledata.list.
+DEBUG:urllib3.connectionpool:https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/symbolic-bit-277217/datasets/_92c6bd45f1c7d1e6b63c323a51c8c55da5139274/tables/anon10e1931df88b49ae3d4617b0bae687204859ec9e/data HTTP/1.1" 200 None

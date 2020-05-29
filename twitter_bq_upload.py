@@ -101,7 +101,7 @@ def bq_dedupe():
     bq_output = results.to_dataframe()
 
     bq_output = bq_read_table()
-    print('de-duplicated bq table to {} results.'.format(bq_output.shape[0]))
+    print('deduplicated bq table to {} results.'.format(bq_output.shape[0]))
 
 def main():
     try:
