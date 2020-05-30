@@ -39,3 +39,4 @@ tf_dev = 'using tf with dev: {}.'.format(tf.config.list_physical_devices('GPU'))
 logging.info(tf_dev)
 print(tf_dev)
 print('imported modules successfully.')
+
