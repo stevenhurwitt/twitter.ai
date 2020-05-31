@@ -136,6 +136,7 @@ def main():
         bq_dedupe()
     except:
         print('deduplication error.')
+        logging.warning('deduplication error.')
 
 if __name__ == "__main__":
     os.chdir(log_dir)
