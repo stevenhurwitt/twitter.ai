@@ -75,6 +75,10 @@ def tokenize_xy(sequence):
     sequences = tokenizer.texts_to_sequences(sequence)
     padded = keras.preprocessing.sequence.pad_sequences(sequences)
     vocab_size = len(tokenizer.word_index) + 1
+
+    pickle.dump(tokenizer, open('tokenizer.pkl', 'wb'))
+    print('saved tokenizer.')
+    logging.info('saved tokenizer.')
  
     X, y = padded[:,:-1], padded[:,-1]
     y = keras.utils.to_categorical(y, num_classes=vocab_size)
@@ -85,7 +89,7 @@ def tokenize_xy(sequence):
     logging.info('y has shape: {}'.format(y.shape))
     return(X, y, seq_length, vocab_size)
 
-def fit_model(X, y, seq_length, vocab_size):
+def fit_model(X, y, seq_length, vocab_size, epoch):
     model = keras.models.Sequential()
     model.add(keras.layers.Embedding(vocab_size, X.shape[1], input_length=seq_length))
     model.add(keras.layers.LSTM(100, return_sequences=True))
@@ -97,14 +101,13 @@ def fit_model(X, y, seq_length, vocab_size):
 
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-    model.fit(X, y, batch_size=128, epochs=100)
+    model.fit(X, y, batch_size=128, epochs=epoch)
  
 
     model.save('model.h5')
 
-    pickle.dump(tokenizer, open('tokenizer.pkl', 'wb'))
-    print('saved model & tokenizer.')
-    logging.info('saved model & tokenizer.')
+    print('saved model.')
+    logging.info('saved model.')
 
 def main():
     #init log file
@@ -148,7 +151,7 @@ def main():
 
     try:
         #fit RNN
-        fit_model(X, y, s, v)
+        fit_model(X, y, s, v, 200)
     except:
         print('error fitting RNN.')
         logging.error('error fitting RNN.')
