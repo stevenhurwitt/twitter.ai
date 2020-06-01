@@ -151,7 +151,7 @@ def main():
 
     try:
         #fit RNN
-        fit_model(X, y, s, v, 200)
+        fit_model(X, y, s, v, 500)
     except:
         print('error fitting RNN.')
         logging.error('error fitting RNN.')
