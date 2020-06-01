@@ -8,4 +8,7 @@ Grabs tweets per specified users. Saves .json & .csv files per user, along with 
 Pulls data from bigquery table & local, subsets to what is in local but not bq, uploads to bq & deduplicates.
 
 ### twitter_train_nn.py
-Trains a recurrent neural network (RNN) to generate tweets based off of data in bq table.
+Trains a recurrent neural network (RNN) to learn tweets based off of data in bq table.
+
+### tweet_generate.py
+Generates tweets based off of neural net.
