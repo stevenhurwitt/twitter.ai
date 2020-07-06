@@ -24,7 +24,7 @@ if should_roll_over:
 logging.basicConfig(filename = 'tweet_grab.log', level = logging.DEBUG)
 os.chdir(base)
 
-with open('/media/steven/big_boi/creds_tweepy.json', 'r') as f:
+with open('/media/steven/samsung/creds_tweepy.json', 'r') as f:
     tweepy_creds = json.load(f)
 f.close()
     

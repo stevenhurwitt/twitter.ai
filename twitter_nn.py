@@ -1,4 +1,4 @@
-base = '/media/steven/big_boi/twitter.ai'
+base = '/media/steven/samsung/twitter.ai'
 
 import re
 import os
