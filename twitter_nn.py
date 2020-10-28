@@ -1,4 +1,4 @@
-base = '/media/steven/samsung/twitter.ai'
+base = '/media/steven/big_boi/twitter.ai'
 
 import re
 import os
@@ -104,7 +104,7 @@ def fit_model(X, y, seq_length, vocab_size, epoch):
     model.fit(X, y, batch_size=128, epochs=epoch)
  
 
-    model.save('model.h5')
+    model.save('model_500.h5')
 
     print('saved model.')
     logging.info('saved model.')

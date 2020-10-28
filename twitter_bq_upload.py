@@ -28,7 +28,7 @@ def log_init():
     logging.config.dictConfig({'version' : 1, 'disable_existing_loggers' : True})
 
 #init bq client
-creds_fname = '/media/steven/samsung/creds_google.json'
+creds_fname = '/media/steven/big_boi/creds_google.json'
 client = bigquery.Client.from_service_account_json(creds_fname)
 bqstorageclient = bigquery_storage.BigQueryStorageClient.from_service_account_json(creds_fname)
 logging.info('initialized bigquery client.')
