@@ -1,8 +1,5 @@
-base = '/media/steven/big_boi/twitter.ai'
-
 import re
 import os
-os.chdir(base)
 import logging
 import logging.handlers
 import pprint
@@ -20,6 +17,8 @@ from google.cloud import bigquery
 from google.cloud import bigquery_storage
 from twitter_bq_upload import bq_read_table
 
+base = os.getcwd()
+os.chdir(base)
 data_dir = os.path.join(base, 'data')
 log_dir = os.path.join(base, 'logs')
 
@@ -34,7 +33,7 @@ def log_init():
     logging.basicConfig(filename = 'twitter_train.log', level = logging.DEBUG)
 
 #init bq client
-creds_fname = '/media/steven/big_boi/creds_google.json'
+creds_fname = "creds_google.json"
 client = bigquery.Client.from_service_account_json(creds_fname)
 bqstorageclient = bigquery_storage.BigQueryStorageClient.from_service_account_json(creds_fname)
 logging.info('initialized bigquery client.')

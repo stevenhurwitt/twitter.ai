@@ -1,1 +1,3 @@
-creds_tweepy.json
+__pycache__/
+.vscode/
+*.json
