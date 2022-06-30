@@ -102,5 +102,7 @@ def main():
     print('wrote cleaned master file to .csv.')
     os.chdir(base)
 
+    # write to adls data lake
+
 if __name__ == "__main__":
     main()
