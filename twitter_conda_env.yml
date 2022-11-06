@@ -15,14 +15,16 @@ dependencies:
   - aws-c-io=0.10.5=h35aa462_0
   - aws-checksums=0.1.11=h0010a65_7
   - aws-sdk-cpp=1.8.186=h766a74d_3
+  - blas=1.0=openblas
   - blinker=1.5=pyhd8ed1ab_0
+  - bottleneck=1.3.5=py38h67323c0_0
   - brotli=1.0.9=hb7f2c08_8
   - brotli-bin=1.0.9=hb7f2c08_8
   - brotlipy=0.7.0=py38hef030d1_1005
   - bzip2=1.0.8=h0d85af4_4
   - c-ares=1.18.1=h0d85af4_0
-  - ca-certificates=2022.9.24=h033912b_0
-  - certifi=2022.9.24=pyhd8ed1ab_0
+  - ca-certificates=2022.10.11=hecd8cb5_0
+  - certifi=2022.9.24=py38hecd8cb5_0
   - cffi=1.15.1=py38hc55c11b_0
   - charset-normalizer=2.1.1=pyhd8ed1ab_0
   - click=8.1.3=unix_pyhd8ed1ab_2
@@ -32,7 +34,7 @@ dependencies:
   - gflags=2.2.2=hb1e8313_1004
   - glog=0.4.0=hb7f4fc5_3
   - google-api-core-grpc=1.22.2=h32f6830_0
-  - google-auth-oauthlib=0.7.1=pyhd8ed1ab_0
+  - google-auth-oauthlib=0.5.2=py38hecd8cb5_0
   - google-cloud-bigquery-core=1.28.0=py38h32f6830_0
   - google-cloud-bigquery-storage-core=2.0.0=pyh9f0ad1d_1
   - google-cloud-core=1.7.1=pyhd3eb1b0_0
@@ -66,11 +68,14 @@ dependencies:
   - multidict=6.0.2=py38hef030d1_2
   - mypy_extensions=0.4.3=py38h50d1736_6
   - ncurses=6.3=hca72f7f_3
-  - numpy=1.23.4=py38hc2f29e8_1
+  - numexpr=2.8.3=py38h0f1bd0b_0
+  - numpy=1.23.3=py38h0f1bd0b_1
+  - numpy-base=1.23.3=py38hbda7086_1
   - oauthlib=3.2.2=pyhd8ed1ab_0
-  - openssl=1.1.1s=hfd90126_0
+  - openssl=1.1.1s=hca72f7f_0
   - orc=1.6.7=hb8e0f11_1
-  - pandas=1.5.1=py38hec72209_1
+  - packaging=21.3=pyhd3eb1b0_0
+  - pandas=1.4.4=py38he9d5cce_0
   - parquet-cpp=1.5.1=2
   - pip=22.2.2=py38hecd8cb5_0
   - pyarrow=4.0.0=py38hf787c1d_1_cpu
@@ -78,6 +83,7 @@ dependencies:
   - pycparser=2.21=pyhd8ed1ab_0
   - pyjwt=2.6.0=pyhd8ed1ab_0
   - pyopenssl=22.1.0=pyhd8ed1ab_0
+  - pyparsing=3.0.9=py38hecd8cb5_0
   - pysocks=1.7.1=pyha2e5f31_6
   - python=3.8.13=hdfd78df_1
   - python-dateutil=2.8.2=pyhd8ed1ab_0
@@ -91,6 +97,7 @@ dependencies:
   - snappy=1.1.9=h225ccf5_2
   - sqlite=3.39.3=h707629a_0
   - tk=8.6.12=h5d9f67b_0
+  - tweepy=4.12.0=pyhd8ed1ab_0
   - typing_extensions=4.4.0=pyha770c72_0
   - typing_inspect=0.7.1=pyh6c4a22f_0
   - wheel=0.37.1=pyhd3eb1b0_0
