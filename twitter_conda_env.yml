@@ -1,4 +1,4 @@
-name: twitter
+name: twitter-ai
 channels:
   - pytorch
   - conda-forge
