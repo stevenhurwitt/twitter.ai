@@ -11,6 +11,6 @@ COPY ./spark-env.conf conf/spark-env.conf
 
 #Create the workspace/events shared dir and start Spark Master
 
-CMD bash -c "mkdir -p /opt/workspace/events/technology && mkdir -p /opt/workspace/events/news && mkdir -p /opt/workspace/events/worldnews && mkdir -p /opt/workspace/events/ProgrammerHumor && mkdir -p /opt/workspace/tmp/driver/technology && mkdir -p /opt/workspace/tmp/executor/technology && bin/spark-class org.apache.spark.deploy.master.Master >> logs/spark-master.out"
+CMD bash -c "mkdir -p /opt/workspace/events/twitter && mkdir -p /opt/workspace/tmp/driver/twitter && mkdir -p /opt/workspace/tmp/executor/twitter && bin/spark-class org.apache.spark.deploy.master.Master >> logs/spark-master.out"
 
 
