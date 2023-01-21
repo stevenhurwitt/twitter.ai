@@ -1,3 +1,5 @@
 __pycache__/
 .vscode/
 *.json
+twitter.ai
+.DS_Store
