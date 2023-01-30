@@ -1,6 +1,18 @@
 # twitter.ai
 Code to generate tweets using an RNN.
 
+`creds.json`:
+
+```json
+{
+    "twitter-api-key": "abc",
+    "twitter-secret-key": "123",
+    "twitter-bearer": "xyz",
+    "twitter-access-token": "def",
+    "twitter-secret-access": "456"
+}
+```
+
 ### tweet_grab.py
 Grabs tweets per specified users. Saves .json & .csv files per user, along with master data .csv.
 
