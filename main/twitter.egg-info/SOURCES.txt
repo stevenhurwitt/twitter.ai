@@ -1,0 +1,5 @@
+setup.py
+twitter.egg-info/PKG-INFO
+twitter.egg-info/SOURCES.txt
+twitter.egg-info/dependency_links.txt
+twitter.egg-info/top_level.txt
