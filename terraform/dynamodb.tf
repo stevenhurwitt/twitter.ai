@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "example_table" {
- name = "example-table"
+resource "aws_dynamodb_table" "tweets" {
+ name = "tweets"
  billing_mode = "PROVISIONED"
  read_capacity= "30"
  write_capacity= "30"
@@ -7,5 +7,10 @@ resource "aws_dynamodb_table" "example_table" {
   name = "created_at"
   type = "S"
  }
+ attribute {
+    name = "user"
+    type = "S"
+ }
+ range_key = "created_at"
  hash_key = "user"
 }

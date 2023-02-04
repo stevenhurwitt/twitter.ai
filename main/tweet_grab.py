@@ -74,8 +74,14 @@ def get_tweets(user, table):
 
     api = tweepy.API(auth)
     timeline_response = api.user_timeline(screen_name = user, count = 25)
-    n = len(timeline_response)
-    last_id = timeline_response[n-1]._json["id"]
+    n = int(len(timeline_response)) - 1
+    try:
+        last_id = timeline_response[n]._json["id"]
+    
+    except Exception as e:
+        print(e)
+        last_id = timeline_response[20]._json["id"]
+
     i = 0
 
     print("putting first batch")
@@ -86,8 +92,13 @@ def get_tweets(user, table):
     while i < 25:
         try:
             timeline_response = api.user_timeline(screen_name = user, count = 25, max_id = last_id)
-            n = len(timeline_response)
-            last_id = timeline_response[n-1]._json["id"]
+            n = int(len(timeline_response)) - 1
+            try:
+                last_id = timeline_response[n]._json["id"]
+
+            except Exception as e:
+                print(e)
+                last_id = timeline_response[20]._json["id"]
 
             batch_put_response(timeline_response, table)
             i += 1
