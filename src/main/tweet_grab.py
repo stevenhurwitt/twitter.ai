@@ -149,9 +149,6 @@ def main():
         except Exception as e:
             print(e)
 
-        my_following = get_followers("xanax_princess_")
-        print(len(my_following))
-
     except Exception as e:
         print("Exception: {}".format(e))
 
