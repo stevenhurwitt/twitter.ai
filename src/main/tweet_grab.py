@@ -117,9 +117,13 @@ def get_tweets(user, table):
                 print("sleeping for 5 minutes")
                 time.sleep(60*5)
 
+            elif "401" in str(e):
+                print("skipping user")
+                time.sleep(1)
+
             else:
                 print("sleeping for a minute")
-                time.sleep(60)
+                time.sleep(30)
 
 #concatenate into master df, write to file
 def main():
