@@ -82,7 +82,7 @@ def get_tweets(user, table):
     
     except Exception as e:
         print(e)
-        last_id = timeline_response[1]._json["id"]
+        last_id = timeline_response[0]._json["id"]
 
     i = 0
 
@@ -117,50 +117,6 @@ def get_tweets(user, table):
             else:
                 print("sleeping for a minute")
                 time.sleep(60)
-
-#scrape pages of tweets per users
-#save metadata: tweet, user, retweets, favorites, is_retweet, date
-def get_tweets_per_user(user, pages):
-    
-    i = 0
-    tweet_info = []
-    for p in range(0,pages):
-        try:
-            auth = tweepy.OAuthHandler(creds['twitter-api-key'], creds['twitter-secret-key'])
-            auth.set_access_token(creds['twitter-access-token'], creds['twitter-secret-access'])
-
-            api = tweepy.API(auth)
-            tweets = api.user_timeline(screen_name = user, page = p)
-            for t in tweets:
-                try:
-                    tweet_dict = dict([('text', t.text), ('user', user), ('date', t.created_at), ('fav_count', t.favorite_count), ('retweet_count', t.retweet_count), ('retweet', t.retweeted)])
-                    tweet_info.append((i, tweet_dict))
-                    i += 1
-                except:
-                    print('error with tweet {}.'.format(i))
-        except:
-            output = 'error with page {}'.format(p)
-            print(output)
-            logging.error(output)
-
-    tweet_info = dict(tweet_info)
-    tweet_info_json = json.dumps(tweet_info, indent = 1, sort_keys = False, default = str)
-    json_fname = '%s_tweet_dump.json' % user
-
-    with open(json_fname, 'w') as f:
-        json.dump(tweet_info_json, f)
-    
-    
-    tweets_df = pd.read_json(tweet_info_json, orient = 'index')
-    tweets_df.sort_index(axis = 0, inplace = True)
-    csv_fname = '%s_tweet_dump.csv' % user
-    tweets_df.to_csv(csv_fname, index = False)
-    
-    log_out = 'saved %d tweets for user %s.' % (i, user)
-    print(log_out)
-    logging.info(log_out)
-    
-    return(tweets_df)
 
 #concatenate into master df, write to file
 def main():
