@@ -76,13 +76,13 @@ def get_tweets(user, table):
 
     api = tweepy.API(auth)
     timeline_response = api.user_timeline(screen_name = user, count = 25)
-    n = int(len(timeline_response)) - 1
+    n = int(len(timeline_response)) - 2
     try:
         last_id = timeline_response[n]._json["id"]
     
     except Exception as e:
         print(e)
-        last_id = timeline_response[0]._json["id"]
+        last_id = timeline_response[1]._json["id"]
 
     i = 0
 
@@ -94,7 +94,7 @@ def get_tweets(user, table):
     while i < 25:
         try:
             timeline_response = api.user_timeline(screen_name = user, count = 25, max_id = last_id)
-            n = int(len(timeline_response)) - 1
+            n = int(len(timeline_response)) - 2
             try:
                 last_id = timeline_response[n]._json["id"]
 
