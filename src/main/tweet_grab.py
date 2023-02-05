@@ -82,7 +82,7 @@ def get_tweets(user, table):
     
     except Exception as e:
         print(e)
-        last_id = timeline_response[20]._json["id"]
+        last_id = timeline_response[0]._json["id"]
 
     i = 0
 
@@ -100,7 +100,7 @@ def get_tweets(user, table):
 
             except Exception as e:
                 print(e)
-                # last_id = timeline_response[20]._json["id"]
+                last_id = timeline_response[0]._json["id"]
 
             batch_put_response(timeline_response, table)
             i += 1
