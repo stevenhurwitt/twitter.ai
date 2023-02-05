@@ -153,7 +153,15 @@ def main():
         print("Exception: {}".format(e))
 
     results = []
-    my_following = get_followers("xanax_princess_")
+    try:
+        my_following = get_followers("xanax_princess_")
+
+    except Exception as e:
+        if "429" in str(e):
+            print(e)
+            my_following = []
+        else:
+            print("Exception: {}".format(e))
     tweets = dynamodb.Table("tweets")
 
     response = tweets.scan()
