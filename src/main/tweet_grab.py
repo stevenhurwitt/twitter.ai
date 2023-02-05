@@ -87,7 +87,6 @@ def get_tweets(user, table):
 
     i = 0
 
-    print("putting first batch")
     batch_put_response(timeline_response, table)
     print("inserted first batch to dynamodb successfully.")
     i += 1
@@ -109,7 +108,7 @@ def get_tweets(user, table):
             i += 1
 
             if (i > 0 and (i % 5) == 0):
-                print("inserted batch {} to dynamodb successfully.".format(i+1))
+                print("inserted batch {} to dynamodb successfully.".format(i))
     
         except Exception as e:
             print(e)
@@ -123,38 +122,33 @@ def get_tweets(user, table):
                 i += 1
 
             else:
-                print("sleeping for a minute")
+                print("breaking loop")
                 i += 1
-                time.sleep(30)
-                continue
+                break
 
 #concatenate into master df, write to file
 def main():
     try:
-        try:
-            client = boto3.client('dynamodb',
-                # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]),
-                aws_access_key_id=creds["aws-access-key"],
-                aws_secret_access_key=creds["aws-secret-access-key"],
-                region_name='us-east-2')
+        client = boto3.client('dynamodb',
+            # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]),
+            aws_access_key_id=creds["aws-access-key"],
+            aws_secret_access_key=creds["aws-secret-access-key"],
+            region_name='us-east-2')
 
-            dynamodb = boto3.resource('dynamodb', \
-                        # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]), \
-                        region_name='us-east-2')
+        dynamodb = boto3.resource('dynamodb', \
+                    # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]), \
+                    region_name='us-east-2')
 
-            session = botocore.session.get_session()
-            dynamodb_session = session.create_client('dynamodb', \
-                                region_name='us-east-2',
-                                # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]),
-                                aws_access_key_id=creds["aws-access-key"],
-                                aws_secret_access_key=creds["aws-secret-access-key"]) # low-level client
+        session = botocore.session.get_session()
+        dynamodb_session = session.create_client('dynamodb', \
+                            region_name='us-east-2',
+                            # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]),
+                            aws_access_key_id=creds["aws-access-key"],
+                            aws_secret_access_key=creds["aws-secret-access-key"]) # low-level client
 
-            tweets = dynamodb.Table("tweets")
+        tweets = dynamodb.Table("tweets")
 
-            print("created dynamo client.")
-
-        except Exception as e:
-            print(e)
+        print("created dynamo client.")
 
     except Exception as e:
         print("Exception: {}".format(e))
