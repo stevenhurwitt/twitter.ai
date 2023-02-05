@@ -186,6 +186,10 @@ def main():
                 results.append(output)
                 time.sleep(5)
 
+            except Exception as e:
+                if '401' in str(e):
+                    print("401 error: {}".format(e))
+
             except KeyboardInterrupt as k:
                 print(k)
         
