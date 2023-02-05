@@ -14,7 +14,9 @@ from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key, Attr
 print("imported modules.")
 
-with open("../creds.json", "r") as f:
+filepath = "/home/steven/Documents/twitter.ai/creds.json"
+
+with open(filepath, "r") as f:
     creds = json.load(f)
     f.close()
     print("read creds.json")
@@ -22,7 +24,7 @@ with open("../creds.json", "r") as f:
 def get_followers(user):
 
 
-    with open("../creds.json", "r") as f:
+    with open(filepath, "r") as f:
         creds = json.load(f)
         f.close()
         print("read creds.json")
@@ -98,7 +100,7 @@ def get_tweets(user, table):
 
             except Exception as e:
                 print(e)
-                last_id = timeline_response[20]._json["id"]
+                # last_id = timeline_response[20]._json["id"]
 
             batch_put_response(timeline_response, table)
             i += 1
@@ -195,6 +197,7 @@ def main():
         print("Exception: {}".format(e))
 
     results = []
+    my_following = get_followers("xanax_princess_")
     for f in my_following:
         try:
             output = get_tweets(f, tweets)
