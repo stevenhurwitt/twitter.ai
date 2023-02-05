@@ -198,14 +198,29 @@ def main():
 
     results = []
     my_following = get_followers("xanax_princess_")
-    for f in my_following:
-        try:
-            output = get_tweets(f, tweets)
-            results.append(output)
-            time.sleep(5)
+    tweets = dynamodb.Table("tweets")
 
-        except KeyboardInterrupt as k:
-            print(k)
+    response = tweets.scan()
+    users = []
+
+    for r in response['Items']:
+        users.append(r['user'])
+
+    unique_users = np.unique(users)
+    source = list(unique_users)
+
+    for f in my_following:
+        if (f not in source):
+            try:
+                output = get_tweets(f, tweets)
+                results.append(output)
+                time.sleep(5)
+
+            except KeyboardInterrupt as k:
+                print(k)
+        
+        else:
+            print("found records in dynamo for user: {}.".format(f))
 
     df = pd.DataFrame(results)
     df.head()
