@@ -126,25 +126,26 @@ def get_tweets(user, table):
                 print("sleeping for a minute")
                 i += 1
                 time.sleep(30)
+                continue
 
 #concatenate into master df, write to file
 def main():
     try:
         try:
             client = boto3.client('dynamodb',
-                endpoint_url = "http://{}:{}".format(creds["host"], creds["port"]),
+                # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]),
                 aws_access_key_id=creds["aws-access-key"],
                 aws_secret_access_key=creds["aws-secret-access-key"],
                 region_name='us-east-2')
 
             dynamodb = boto3.resource('dynamodb', \
-                        endpoint_url = "http://{}:{}".format(creds["host"], creds["port"]), \
+                        # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]), \
                         region_name='us-east-2')
 
             session = botocore.session.get_session()
             dynamodb_session = session.create_client('dynamodb', \
                                 region_name='us-east-2',
-                                endpoint_url = "http://{}:{}".format(creds["host"], creds["port"]),
+                                # endpoint_url = "https://{}:{}".format(creds["host"], creds["port"]),
                                 aws_access_key_id=creds["aws-access-key"],
                                 aws_secret_access_key=creds["aws-secret-access-key"]) # low-level client
 
@@ -166,8 +167,14 @@ def main():
         if "429" in str(e):
             print(e)
             my_following = []
+        
+        elif "401" in str(e):
+            print(e)
+            my_following = []
+
         else:
             print("Exception: {}".format(e))
+
     tweets = dynamodb.Table("tweets")
 
     response = tweets.scan()
