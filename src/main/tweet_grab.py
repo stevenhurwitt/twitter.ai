@@ -200,6 +200,7 @@ def main():
     df = pd.DataFrame(results)
     df.head()
     df.shape
+    df.to_csv("/home/steven/Documents/twitter.ai/data/tweets.csv", header = True, index = False)
 
 if __name__ == "__main__":
     main()
