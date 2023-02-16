@@ -198,8 +198,7 @@ def main():
             print("found records in dynamo for user: {}.".format(f))
 
     df = pd.DataFrame(results)
-    df.head()
-    df.shape
+    print(df.head())
     df.to_csv("/home/steven/Documents/twitter.ai/data/tweets.csv", header = True, index = False)
 
 if __name__ == "__main__":
