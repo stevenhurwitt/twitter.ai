@@ -72,35 +72,36 @@ def get_tweets(user, table, api):
     print("scraping tweets for user: {}".format(user))
     timeline_response = api.user_timeline(screen_name = user, count = 25)
     n = len(timeline_response)
-    last_id = timeline_response[n-1]._json["id"]
-    i = 0
+    if n > 0:
+        last_id = timeline_response[n-1]._json["id"]
+        i = 0
 
-    print("putting first batch")
-    batch_put_response(timeline_response, table)
-    print("inserted first batch to dynamodb successfully.")
-    i += 1
+        print("putting first batch")
+        batch_put_response(timeline_response, table)
+        print("inserted first batch to dynamodb successfully.")
+        i += 1
 
-    while i < 25:
-        try:
-            timeline_response = api.user_timeline(screen_name = user, count = 25, max_id = last_id)
-            n = len(timeline_response)
-            last_id = timeline_response[n-1]._json["id"]
+        while i < 25:
+            try:
+                timeline_response = api.user_timeline(screen_name = user, count = 25, max_id = last_id)
+                n = len(timeline_response)
+                last_id = timeline_response[n-1]._json["id"]
 
-            batch_put_response(timeline_response, table)
-            i += 1
+                batch_put_response(timeline_response, table)
+                i += 1
 
-            if (i > 0 and (i % 5) == 0):
-                print("inserted batch {} to dynamodb successfully.".format(i+1))
-    
-        except Exception as e:
-            print(e)
-            if "429" in str(e):
-                print("sleeping for 5 minutes")
-                time.sleep(60*5)
+                if (i > 0 and (i % 5) == 0):
+                    print("inserted batch {} to dynamodb successfully.".format(i+1))
+        
+            except Exception as e:
+                print(e)
+                if "429" in str(e):
+                    print("sleeping for 5 minutes")
+                    time.sleep(60*5)
 
-            else:
-                print("sleeping for a minute")
-                time.sleep(60)
+                else:
+                    print("sleeping for a minute")
+                    time.sleep(60)
 
 #concatenate into master df, write to file
 def main():
