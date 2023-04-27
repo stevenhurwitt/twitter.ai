@@ -1,11 +1,11 @@
 ################### glue jobs ####################
-resource "aws_glue_job" "example" {
-  name     = "example-curation"
+resource "aws_glue_job" "news" {
+  name     = "news-curation"
   role_arn = aws_iam_role.glue.arn
   max_retries = 0
   glue_version = "3.0"
   worker_type = "G.1X"
-  number_of_workers = 1
+  number_of_workers = 2
 
   command {
     script_location = "s3://${var.s3_bucket_name}/scripts/example-curation.py"

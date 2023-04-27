@@ -19,7 +19,7 @@ resource "aws_iam_policy" "s3_policy" {
 EOT
 }
 
-#################### glue ####################
+################### glue ####################
 resource "aws_iam_role" "glue" {
   name = "AWSGlueServiceRoleDefault"
   assume_role_policy = <<EOF
