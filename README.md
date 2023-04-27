@@ -13,6 +13,12 @@ Code to generate tweets using an RNN.
 }
 ```
 
+## dynamo db
+
+`./dynamo.sh`
+
+`aws dynamodb list-tables --endpoint-url http://localhost:8000`
+
 ### tweet_grab.py
 Grabs tweets per specified users. Saves .json & .csv files per user, along with master data .csv.
 
