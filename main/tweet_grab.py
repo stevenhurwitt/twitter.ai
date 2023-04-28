@@ -134,10 +134,10 @@ def main():
     logging.debug('authorized API w/ client id and secret.')
 
     client = boto3.client('dynamodb',
-    endpoint_url = "http://{}:{}".format(tweepy_creds["host"], tweepy_creds["port"]),
-    aws_access_key_id=tweepy_creds["aws-access-key"],
-    aws_secret_access_key=tweepy_creds["aws-secret-key"],
-    region_name='us-east-2')
+        endpoint_url = "http://{}:{}".format(tweepy_creds["host"], tweepy_creds["port"]),
+        aws_access_key_id=tweepy_creds["aws-access-key"],
+        aws_secret_access_key=tweepy_creds["aws-secret-key"],
+        region_name='us-east-2')
 
     dynamodb = boto3.resource('dynamodb', \
                 endpoint_url = "http://{}:{}".format(tweepy_creds["host"], tweepy_creds["port"]), \
