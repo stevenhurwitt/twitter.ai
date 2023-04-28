@@ -155,8 +155,7 @@ def main():
     print("created dynamo client.")
 
     my_following = get_followers("xanax_princess_", api)
-
-    # print("following: {}.".format(my_following))
+    print("following count: {}.".format(len(my_following)))
 
     initial_response = tweets.scan()
     count = initial_response["Count"]
