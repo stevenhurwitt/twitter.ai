@@ -9,6 +9,7 @@ import datetime as dt
 import pandas as pd
 import numpy as np
 import botocore.session
+from dynamodb_json import json_util
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key, Attr
 print('imported modules successfully.')
@@ -73,35 +74,43 @@ def get_tweets(user, table, api):
     timeline_response = api.user_timeline(screen_name = user, count = 25)
     n = len(timeline_response)
     if n > 0:
-        last_id = timeline_response[n-1]._json["id"]
-        i = 0
+        try:
+            last_id = timeline_response[n-1]._json["id"]
+            i = 0
 
-        print("putting first batch")
-        batch_put_response(timeline_response, table)
-        print("inserted first batch to dynamodb successfully.")
-        i += 1
+            print("putting first batch")
+            batch_put_response(timeline_response, table)
+            print("{}: inserted first batch to dynamodb successfully.".format(user))
+            i += 1
 
-        while i < 25:
-            try:
-                timeline_response = api.user_timeline(screen_name = user, count = 25, max_id = last_id)
-                n = len(timeline_response)
-                last_id = timeline_response[n-1]._json["id"]
+            while i < 25:
+                try:
+                    timeline_response = api.user_timeline(screen_name = user, count = 25, max_id = last_id)
+                    n = len(timeline_response)
+                    last_id = timeline_response[n-1]._json["id"]
 
-                batch_put_response(timeline_response, table)
-                i += 1
+                    batch_put_response(timeline_response, table)
+                    i += 1
 
-                if (i > 0 and (i % 5) == 0):
-                    print("inserted batch {} to dynamodb successfully.".format(i+1))
-        
-            except Exception as e:
-                print(e)
-                if "429" in str(e):
-                    print("sleeping for 5 minutes")
-                    time.sleep(60*5)
+                    if (i > 0 and (i % 5) == 0):
+                        print("{}: inserted batch {} to dynamodb successfully.".format(user, i+1))
+            
+                except Exception as e:
+                    print(e)
+                    if "429" in str(e):
+                        print("sleeping for 5 minutes")
+                        time.sleep(60*5)
 
-                else:
-                    print("sleeping for a minute")
-                    time.sleep(60)
+                    else:
+                        print("sleeping for a minute")
+                        time.sleep(60)
+
+        except Exception as e:
+            print(e)
+    
+    else:
+        print("no response data for {}".format(user))
+        pass
 
 #concatenate into master df, write to file
 def main():
@@ -147,14 +156,24 @@ def main():
 
     my_following = get_followers("xanax_princess_", api)
 
-    #set users to scrape tweets from
-    # users = ['xanax_princess_', 'slpyboy', 'AristocratAlex', 'timpc9213', 'cd3lisi', 'ChriMoulto', 'uhnonimouse', 'Bean_glitch']
+    # print("following: {}.".format(my_following))
 
-    print("following: {}.".format(my_following))
+    initial_response = tweets.scan()
+    count = initial_response["Count"]
+    print("found {} existing records in dynamo table".format(count))
 
-    tweets = dynamodb.Table("tweets")
+    # if count == 0:
+        # create table...
 
-    for f in my_following:
+    df = pd.DataFrame(json_util.loads(initial_response["Items"]))
+    dynamo_users = list(np.unique(df['user']))
+
+    subset = [a not in dynamo_users for a in my_following]
+    missing_users = [x for x, y in zip(my_following, subset) if y]
+
+    print("found {} users in dynamo, {} users left.".format(len(dynamo_users), len(missing_users)))
+
+    for f in missing_users:
         try:
             output = get_tweets(f, tweets, api)
             time.sleep(5)
@@ -163,7 +182,9 @@ def main():
             print(k)
 
     response = tweets.scan()
-    # response
+    new_count = response["Count"]
+    print("found {} existing records in dynamo table".format(new_count))
+
 
 if __name__ == "__main__":
     main()
