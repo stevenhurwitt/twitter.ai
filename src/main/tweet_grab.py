@@ -197,9 +197,9 @@ def main():
         else:
             print("found records in dynamo for user: {}.".format(f))
 
-    df = pd.DataFrame(results)
-    print(df.head())
-    df.to_csv("/home/steven/Documents/twitter.ai/data/tweets.csv", header = True, index = False)
+    # df = pd.DataFrame(results)
+    # print(df.head())
+    # df.to_csv("/home/steven/Documents/twitter.ai/data/tweets.csv", header = True, index = False)
 
 if __name__ == "__main__":
     main()
