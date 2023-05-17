@@ -20,9 +20,9 @@ applymapping1 = ApplyMapping.apply(frame = datasource0, mappings = [("favorites"
 
 selectfields2 = SelectFields.apply(frame = applymapping1, paths = ["favorites", "created_at", "id", "tweets", "retweets", "inserted_at", "user"], transformation_ctx = "selectfields2")
 
-resolvechoice3 = ResolveChoice.apply(frame = selectfields2, choice = "MATCH_CATALOG", database = "twitter", table_name = "ddb_tweets", transformation_ctx = "resolvechoice3")
+resolvechoice3 = ResolveChoice.apply(frame = selectfields2, choice = "MATCH_CATALOG", database = "twitter", table_name = "tweets", transformation_ctx = "resolvechoice3")
 
 resolvechoice4 = ResolveChoice.apply(frame = resolvechoice3, choice = "make_struct", transformation_ctx = "resolvechoice4")
 
-datasink5 = glueContext.write_dynamic_frame.from_catalog(frame = resolvechoice4, database = "twitter", table_name = "ddb_tweets", transformation_ctx = "datasink5")
+datasink5 = glueContext.write_dynamic_frame.from_catalog(frame = resolvechoice4, database = "twitter", table_name = "tweets", transformation_ctx = "datasink5")
 job.commit()
