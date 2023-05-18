@@ -2,10 +2,12 @@ FROM cluster-base
 
 # -- Layer: JupyterLab
 
-ARG spark_version=3.3.1
+ARG spark_version=3.3.2
 ARG jupyterlab_version=3.5.2
 
-COPY ./ ${SHARED_WORKSPACE}/twitter/
+COPY ./main ${SHARED_WORKSPACE}/twitter/main/
+COPY ./notebooks ${SHARED_WORKSPACE}/twitter/notebooks/
+COPY ./env/requirements.txt ${SHARED_WORKSPACE}/twitter/env/requirements.txt
 
 RUN apt-get install debian-archive-keyring
 RUN wget -O - ports.debian.org/archive_2021.key | apt-key add -
@@ -37,9 +39,9 @@ RUN rm -rf /var/lib/apt/lists/*
     # ln -s /usr/local/bin/python3 /usr/bin/python
 
 # deal w/ outdated pyspark guava jar for hadoop-aws (check maven repo for hadoop-common version)
-RUN cd /usr/local/lib/python3.10/site-packages/pyspark/jars/ && \
-    rm guava-*.jar && \
-    wget https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar
+# RUN cd /usr/local/lib/python3.10/site-packages/pyspark/jars/ && \
+#     rm guava-*.jar && \
+#     wget https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar
 
 # -- Runtime
 

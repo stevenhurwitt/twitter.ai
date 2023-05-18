@@ -5,27 +5,18 @@ backcall==0.2.0
 blinker==1.4
 boto3==1.24.20
 botocore==1.27.20
-brotlipy @ file:///home/conda/feedstock_root/build_artifacts/brotlipy_1648854164373/work
 cachetools==5.3.0
-certifi @ file:///croot/certifi_1671487769961/work/certifi
-cffi @ file:///opt/conda/conda-bld/cffi_1642701102775/work
-charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1655906222726/work
 comm==0.1.2
-cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1652967134882/work
 debugpy==1.6.6
 decorator==5.1.1
-delta @ file:///home/conda/feedstock_root/build_artifacts/delta_1591050940160/work
 executing==1.2.0
 flatbuffers==23.1.21
-flit_core @ file:///opt/conda/conda-bld/flit-core_1644941570762/work/source/flit_core
-future @ file:///tmp/build/80754af9/future_1607571303524/work
 gast==0.4.0
 google-auth==2.16.0
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
 grpcio==1.51.1
 h5py==3.8.0
-idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1642433548627/work
 importlib-metadata==6.0.0
 ipykernel==6.20.2
 ipython==8.9.0
@@ -34,15 +25,13 @@ jmespath==1.0.1
 joblib==1.2.0
 jupyter_client==8.0.2
 jupyter_core==5.2.0
-kafka-python @ file:///home/conda/feedstock_root/build_artifacts/kafka-python_1601470752419/work
 keras==2.11.0
 libclang==15.0.6.1
 Markdown==3.4.1
 MarkupSafe==2.1.2
 matplotlib-inline==0.1.6
 nest-asyncio==1.5.6
-numpy @ file:///croot/numpy_and_numpy_base_1672336185480/work
-oauthlib @ file:///home/conda/feedstock_root/build_artifacts/oauthlib_1643507977997/work
+numpy
 opt-einsum==3.3.0
 packaging==23.0
 pandas==1.4.2
@@ -55,27 +44,18 @@ protobuf==3.19.6
 psutil==5.9.4
 ptyprocess==0.7.0
 pure-eval==0.2.2
-py4j @ file:///home/conda/feedstock_root/build_artifacts/py4j_1634546926028/work
 pyarrow==8.0.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
 Pygments==2.14.0
-PyJWT @ file:///home/conda/feedstock_root/build_artifacts/pyjwt_1652398519695/work
-pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1643496850550/work
-PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1648857263093/work
-pyspark @ file:///home/conda/feedstock_root/build_artifacts/pyspark_1634556927624/work
-python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
-pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1647961439546/work
-PyYAML @ file:///croot/pyyaml_1670514731622/work
+pyspark==3.3.2
 pyzmq==25.0.0
-requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1656534056640/work
-requests-oauthlib @ file:///home/conda/feedstock_root/build_artifacts/requests-oauthlib_1643557462909/work
+requests
+requests-oauthlib
 rsa==4.9
 s3transfer==0.6.0
 scikit-learn==1.2.1
 scipy==1.10.0
-six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
 stack-data==0.6.2
 tensorboard==2.11.2
 tensorboard-data-server==0.6.1
@@ -88,10 +68,7 @@ threadpoolctl==3.1.0
 torch==1.12.1
 tornado==6.2
 traitlets==5.9.0
-tweepy @ file:///home/conda/feedstock_root/build_artifacts/tweepy_1653077708601/work
-twitter @ file:///home/steven/Documents/twitter.ai/main/dist/twitter-0.1.0-py3-none-any.whl
-typing_extensions @ file:///croot/typing_extensions_1669924550328/work
-urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1647489083693/work
+tweepy
 wcwidth==0.2.6
 Werkzeug==2.2.2
 wrapt==1.14.1
