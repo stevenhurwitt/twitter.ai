@@ -9,9 +9,14 @@ import datetime as dt
 import pandas as pd
 import numpy as np
 import botocore.session
+from pyspark.sql import SparkSession
+from pyspark.sql.types import *
+from pyspark.sql.functions import *
 from dynamodb_json import json_util
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key, Attr
+
+pp = pprint.PrettyPrinter(indent = 2)
 print('imported modules successfully.')
 
 """ get_followers()
@@ -36,6 +41,8 @@ def get_followers(user, api):
         
         except:
             time.sleep(60*15)
+
+    print("got {} following.".format(len(following)))
 
     return(following)
 
@@ -121,6 +128,9 @@ def main():
     log_dir = os.path.join(base, 'logs')
     pp = pprint.PrettyPrinter(indent = 1)
 
+    logger = logging.getLogger("tweet_grab")
+    logger.setLevel(logging.INFO)
+
     os.chdir(base)
 
     with open('./../creds.json', 'r') as f:
@@ -133,11 +143,11 @@ def main():
     api = tweepy.API(auth)
     logging.debug('authorized API w/ client id and secret.')
 
-    client = boto3.client('dynamodb',
-        endpoint_url = "http://{}:{}".format(tweepy_creds["host"], tweepy_creds["port"]),
-        aws_access_key_id=tweepy_creds["aws-access-key"],
-        aws_secret_access_key=tweepy_creds["aws-secret-key"],
-        region_name='us-east-2')
+    # client = boto3.client('dynamodb',
+    #     endpoint_url = "http://{}:{}".format(tweepy_creds["host"], tweepy_creds["port"]),
+    #     aws_access_key_id=tweepy_creds["aws-access-key"],
+    #     aws_secret_access_key=tweepy_creds["aws-secret-key"],
+    #     region_name='us-east-2')
 
     dynamodb = boto3.resource('dynamodb', \
                 endpoint_url = "http://{}:{}".format(tweepy_creds["host"], tweepy_creds["port"]), \
@@ -164,6 +174,44 @@ def main():
     # if count == 0:
         # create table...
 
+    spark_host = tweepy_creds["spark_host"]
+    spark_port = tweepy_creds["spark_port"]
+
+    spark = SparkSession.builder \
+        .appName("tweet_grab") \
+        .config("spark.driver.memory", "2g") \
+        .config("spark.executor.memory", "4g") \
+        .config("spark.executor.cores", "4") \
+        .config("spark.cores.max", "4") \
+        .config("spark.driver.maxResultSize", "2g") \
+        .config("spark.sql.shuffle.partitions", "4") \
+        .config("spark.driver.host", spark_host) \
+        .config("spark.driver.port", "4040") \
+        .config("spark.sql.execution.arrow.enabled", "true") \
+        .config("spark.sql.execution.arrow.fallback.enabled", "true") \
+        .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
+        .config("spark.hadoop.fs.s3a.access.key", tweepy_creds["aws-access-key"]) \
+        .config["spark.hadoop.fs.s3a.secret.key", tweepy_creds["aws-secret-key"]] \
+        .config("spark.hadoop.fs.s3a.endpoint", "s3.amazonaws.com") \
+        .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+        .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
+        .config("spark.hadoop.fs.s3a.impl.disable.cache", "true") \
+        .config("spark.hadoop.fs.s3a.multiobjectdelete.enable", "false") \
+        .config("spark.hadoop.fs.s3a.fast.upload", "true") \
+        .config("spark.hadoop.fs.s3a.fast.upload.buffer", "bytebuffer") \
+        .config("spark.hadoop.fs.s3a.fast.upload.active.blocks", "4") \
+        .config("spark.hadoop.fs.s3a.fast.upload.buffer.size", "1048576") \
+        .config("spark.hadoop.fs.s3a.fast.upload.active.blocks", "4") \
+        .master(f"{spark_host}:{spark_port}") \
+        .enableHiveSupport() \
+        .getOrCreate()
+    
+    sc = spark.sparkContext
+    sc.setLogLevel("INFO")
+
+    spark_df = spark.createDataFrame(pd.DataFrame(json_util.loads(initial_response["Items"])))
+    spark_df.head()
+
     df = pd.DataFrame(json_util.loads(initial_response["Items"]))
     dynamo_users = list(np.unique(df['user']))
 
@@ -184,6 +232,38 @@ def main():
     new_count = response["Count"]
     print("found {} existing records in dynamo table".format(new_count))
 
+    # dynamodb scan
+    tweets = dynamodb.Table("tweets")
+    records = []
+    year_range = {}
+    year_range["first"] = 1990
+    year_range["second"] = 2020
+    scan_kwargs = {
+        'FilterExpression': Key('year').between(year_range['first'], year_range['second']),
+        'ProjectionExpression': "user, tweet, favorites, retweets, created_at, inserted_at",
+        'ExpressionAttributeNames': {"user": "user"}}
+    try:
+        done = False
+        start_key = None
+        while not done:
+            if start_key:
+                scan_kwargs['ExclusiveStartKey'] = start_key
+            response = tweets.scan(**scan_kwargs)
+            records.extend(response.get('Items', []))
+            start_key = response.get('LastEvaluatedKey', None)
+            done = start_key is None
+    except ClientError as err:
+        logger.error(
+            "Couldn't scan for movies. Here's why: %s: %s",
+            err.response['Error']['Code'], err.response['Error']['Message'])
+        raise
+
+    pp.pprint(records)
+    logger.info("Found %d records", len(records))
 
 if __name__ == "__main__":
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    logger.info("running main function...")
     main()
+    logger.info("main function completed.")
