@@ -6,3 +6,7 @@ aws_access_key.txt
 aws_secret.txt
 twitter.ai
 .DS_Store
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform
+terraform/tfplan*
