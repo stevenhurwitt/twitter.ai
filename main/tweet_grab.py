@@ -9,9 +9,6 @@ import datetime as dt
 import pandas as pd
 import numpy as np
 import botocore.session
-from pyspark.sql import SparkSession
-from pyspark.sql.types import *
-from pyspark.sql.functions import *
 from dynamodb_json import json_util
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key, Attr
@@ -158,7 +155,7 @@ def main():
                         region_name='us-east-2',
                         endpoint_url = "http://{}:{}".format(tweepy_creds["host"], tweepy_creds["port"]),
                         aws_access_key_id=tweepy_creds["aws-access-key"],
-                        aws_secret_access_key=tweepy_creds["aws-secret-key"]) # low-level client
+                        aws_secret_access_key=tweepy_creds["aws-secret-access-key"]) # low-level client
 
     tweets = dynamodb.Table("tweets")
 
@@ -174,43 +171,43 @@ def main():
     # if count == 0:
         # create table...
 
-    spark_host = tweepy_creds["spark_host"]
-    spark_port = tweepy_creds["spark_port"]
+    # spark_host = tweepy_creds["spark_host"]
+    # spark_port = tweepy_creds["spark_port"]
 
-    spark = SparkSession.builder \
-        .appName("tweet_grab") \
-        .config("spark.driver.memory", "2g") \
-        .config("spark.executor.memory", "4g") \
-        .config("spark.executor.cores", "4") \
-        .config("spark.cores.max", "4") \
-        .config("spark.driver.maxResultSize", "2g") \
-        .config("spark.sql.shuffle.partitions", "4") \
-        .config("spark.driver.host", spark_host) \
-        .config("spark.driver.port", "4040") \
-        .config("spark.sql.execution.arrow.enabled", "true") \
-        .config("spark.sql.execution.arrow.fallback.enabled", "true") \
-        .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
-        .config("spark.hadoop.fs.s3a.access.key", tweepy_creds["aws-access-key"]) \
-        .config["spark.hadoop.fs.s3a.secret.key", tweepy_creds["aws-secret-key"]] \
-        .config("spark.hadoop.fs.s3a.endpoint", "s3.amazonaws.com") \
-        .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-        .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
-        .config("spark.hadoop.fs.s3a.impl.disable.cache", "true") \
-        .config("spark.hadoop.fs.s3a.multiobjectdelete.enable", "false") \
-        .config("spark.hadoop.fs.s3a.fast.upload", "true") \
-        .config("spark.hadoop.fs.s3a.fast.upload.buffer", "bytebuffer") \
-        .config("spark.hadoop.fs.s3a.fast.upload.active.blocks", "4") \
-        .config("spark.hadoop.fs.s3a.fast.upload.buffer.size", "1048576") \
-        .config("spark.hadoop.fs.s3a.fast.upload.active.blocks", "4") \
-        .master(f"{spark_host}:{spark_port}") \
-        .enableHiveSupport() \
-        .getOrCreate()
+    # spark = SparkSession.builder \
+    #     .appName("tweet_grab") \
+    #     .config("spark.driver.memory", "2g") \
+    #     .config("spark.executor.memory", "4g") \
+    #     .config("spark.executor.cores", "4") \
+    #     .config("spark.cores.max", "4") \
+    #     .config("spark.driver.maxResultSize", "2g") \
+    #     .config("spark.sql.shuffle.partitions", "4") \
+    #     .config("spark.driver.host", spark_host) \
+    #     .config("spark.driver.port", "4040") \
+    #     .config("spark.sql.execution.arrow.enabled", "true") \
+    #     .config("spark.sql.execution.arrow.fallback.enabled", "true") \
+    #     .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
+    #     .config("spark.hadoop.fs.s3a.access.key", tweepy_creds["aws-access-key"]) \
+    #     .config["spark.hadoop.fs.s3a.secret.key", tweepy_creds["aws-secret-key"]] \
+    #     .config("spark.hadoop.fs.s3a.endpoint", "s3.amazonaws.com") \
+    #     .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+    #     .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
+    #     .config("spark.hadoop.fs.s3a.impl.disable.cache", "true") \
+    #     .config("spark.hadoop.fs.s3a.multiobjectdelete.enable", "false") \
+    #     .config("spark.hadoop.fs.s3a.fast.upload", "true") \
+    #     .config("spark.hadoop.fs.s3a.fast.upload.buffer", "bytebuffer") \
+    #     .config("spark.hadoop.fs.s3a.fast.upload.active.blocks", "4") \
+    #     .config("spark.hadoop.fs.s3a.fast.upload.buffer.size", "1048576") \
+    #     .config("spark.hadoop.fs.s3a.fast.upload.active.blocks", "4") \
+    #     .master(f"{spark_host}:{spark_port}") \
+    #     .enableHiveSupport() \
+    #     .getOrCreate()
     
-    sc = spark.sparkContext
-    sc.setLogLevel("INFO")
+    # sc = spark.sparkContext
+    # sc.setLogLevel("INFO")
 
-    spark_df = spark.createDataFrame(pd.DataFrame(json_util.loads(initial_response["Items"])))
-    spark_df.head()
+    # spark_df = spark.createDataFrame(pd.DataFrame(json_util.loads(initial_response["Items"])))
+    # spark_df.head()
 
     df = pd.DataFrame(json_util.loads(initial_response["Items"]))
     dynamo_users = list(np.unique(df['user']))
